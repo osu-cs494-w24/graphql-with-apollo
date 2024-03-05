@@ -1,8 +1,8 @@
-# Centralizing Application State with Redux
+# Using Apollo to execute GraphQL queries
 
-We'll use this code as a starting point for exploring how to use [Redux](https://redux.js.org/) to maintain centralized application state.
+We'll use this code as a starting point for exploring how to use [Apollo](https://www.apollographql.com/) to make queries to a GraphQL API.  The first time you run this app, make sure to run `npm install` first, to install needed dependencies.
 
-The first time you run this app, make sure to run `npm install` first, to install needed dependencies.  Then, to run the app and see it in your browser, you can run
+Also, before running this app, make sure you have the environment variable `VITE_GITHUB_TOKEN` set to contain a [GitHub personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) with `user` scope as well as `public_repo` scope.  Then, to run the app and see it in your browser, you can run
 ```
 npm run dev
 ```
