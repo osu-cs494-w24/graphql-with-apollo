@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useMutation, gql } from '@apollo/client'
 
 /*
  * Caution!!!  This is not a safe way to incorporate an authentication token
@@ -8,15 +9,39 @@ import { useState } from 'react'
 const token = import.meta.env.VITE_GITHUB_TOKEN
 const login = 'robwhess'
 
+const mutation = gql`
+mutation ChangeUserStatus(
+  $emoji: String!,
+  $message: String!
+) {
+  changeUserStatus(input: {
+      clientMutationId: "cs494ApolliQuery",
+      message: $message,
+      emoji: $emoji
+  }) {
+      status {
+          updatedAt
+      }
+  }
+}`
+
 export default function ChangeUserStatus() {
   const [ emoji, setEmoji ] = useState("")
   const [ message, setMessage ] = useState("")
+
+  const [ mutate, { data } ] = useMutation(mutation)
 
   return (
     <div>
       {token ? (
         <form onSubmit={(e) => {
           e.preventDefault()
+          mutate({
+            variables: {
+              message: message,
+              emoji: emoji
+            }
+          })
           setEmoji("")
           setMessage("")
         }}>
@@ -38,6 +63,7 @@ export default function ChangeUserStatus() {
           </div>
           <div>
             <button>Submit</button>
+            {data && <p>Last updated at: {data.changeUserStatus.status.updatedAt}</p>}
           </div>
         </form>
       ) : (
